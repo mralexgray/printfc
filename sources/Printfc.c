@@ -1,8 +1,9 @@
 #include <string.h>
 #include <stdlib.h>
-#include <stdarg.h>
 #include <stdio.h>
 #include <ctype.h>
+#include "printfc.h"
+
 
 // ANSI escape codes.
 #define RED     "\x1b[31m"
@@ -11,7 +12,7 @@
 #define BLUE    "\x1b[34m"
 #define MAGENTA "\x1b[35m"
 #define CYAN    "\x1b[36m"
-#define RESET   "\x1b[0m"
+#define NORMAL   "\x1b[0m"
 
 
 // Maps format characters to color codes.
@@ -24,7 +25,10 @@ static const char *ccmap(char c)
 	case 'b': return BLUE;
 	case 'm': return MAGENTA;
 	case 'c': return CYAN;
-	default:  return RESET;
+	case 'n': return NORMAL;
+	default:
+		printfc("[r]%s[-]%c\n", " - ERROR: invalid color specifier: ", c);
+		exit(1);
 	}
 }
 
@@ -60,20 +64,20 @@ static char *ccformat(const char *f)
 		return NULL;
 	*r = 0;
 
-	strcat(r, RESET);
+	strcat(r, NORMAL);
 	while(*f){
-		if(f[0] == '[' && f[3] == '%'){
+		if(f[0] == '[' && f[2] == ']'  && f[3] == '%'){
 			strcat(r, ccmap(f[1])), f += 3;
 			while(!isalpha(*f))
 				cappend(r, *f), ++f;
 			cappend(r, *f), ++f;
-			strcat(r, RESET);
+			strcat(r, NORMAL);
 		} else{
 			cappend(r, *f);
 			++f;
 		}
 	}
-	strcat(r, RESET);
+	strcat(r, NORMAL);
 	return r;
 }
 
