@@ -22,13 +22,7 @@ printfc("[r]%s %s", "red", "normal");
 
 # Available Colors
 Each color is specified with its first character (in lowercase, i.e. `[r]` for red). The following are currently available:
-+ red
-+ green
-+ yellow
-+ blue
-+ magenta
-+ cyan
-+ normal
+![Image of colors.](images/colors.png)
  
 More will be added soon.
 
