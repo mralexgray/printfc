@@ -1,4 +1,4 @@
-#include "../sources/Printfc.h"
+#include "../sources/printfc.h"
 
 
 int main(int argc, char *argv[]) {
