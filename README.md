@@ -1,5 +1,5 @@
 # Overview
-`printfc` wraps `printf(<format>, ...)` to include color specification for each paramater. The API is identical, but with a small extention. 
+`printfc` wraps `printf(<format>, ...)` to include color specification for each parameter. The API is identical, but with a small extension. Prefixing percent signs in the format string with `[<color identifier]` causes the corresponding argument to be printed in color.
 
 
 
@@ -11,7 +11,11 @@ printfc("[g]%s", "green text");
 printfc("[r]%s [g]%s", "red", "green");
 
 // Other type specifiers work too.
-printf("[y]%d", 52334);
+printfc("[y]%d", 52334);
+
+// If no color color specifications are performed, normal text
+// colors are used.
+printfc("[r]%s %s", "red", "normal");
 ```
 
 
